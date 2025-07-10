@@ -23,6 +23,9 @@ func (e *Settings) OnChange() {
 	log.Println("config change and reload")
 }
 
+func (e *Settings) init() {
+}
+
 // Config 配置集合
 type Config struct {
 	Application *Application          `yaml:"application"`
