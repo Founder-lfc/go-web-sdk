@@ -22,10 +22,8 @@ github.com/AzureAD/microsoft-authentication-library-for-go v1.1.0 h1:HCc0+LpPfpC
 github.com/AzureAD/microsoft-authentication-library-for-go v1.1.0/go.mod h1:wP83P5OoQ5p6ip3ScPr0BAq0BvuPAvacpEuSzyouqAI=
 github.com/BurntSushi/toml v1.5.0 h1:W5quZX/G/csjUnuI8SUYlsHs9M38FC7znL0lIO+DvMg=
 github.com/BurntSushi/toml v1.5.0/go.mod h1:ukJfTF/6rtPPRCnwkur4qwRxa8vTRFBF0uk2lLoLwho=
-github.com/Founder-lfc/go-web-core v1.5.2 h1:SZowy0wKwnCZW8XZWzkd9Dhg80OjaGQ5V1wJtKX7r/8=
-github.com/Founder-lfc/go-web-core v1.5.2/go.mod h1:hG5qSw9RDk22l4spP6+UHtAbZCOj/4llD7AB0ZyWhck=
-github.com/Founder-lfc/go-web-core/plugins/logger/zap v0.0.0-20250710144041-bb52093b30f5 h1:Ny1awbGADBx1k5QasA7IHyIpUVa+nCpAHJBjJTDU3rA=
-github.com/Founder-lfc/go-web-core/plugins/logger/zap v0.0.0-20250710144041-bb52093b30f5/go.mod h1:5KUxrQg+xSiLwWEMxfdnDW94VFbfKQr/pzq3ZKaK6Ro=
+github.com/Founder-lfc/go-web-core v1.0.2 h1:qjIuTEUrrUyACGBer26KusUorNLIpLN66+StTE3Ml34=
+github.com/Founder-lfc/go-web-core v1.0.2/go.mod h1:zyoG34BRLXr9ZRzHdJt5t5Z11+DHl6hxHI1EmjS2Sfg=
 github.com/andeya/ameda v1.5.3 h1:SvqnhQPZwwabS8HQTRGfJwWPl2w9ZIPInHAw9aE1Wlk=
 github.com/andeya/ameda v1.5.3/go.mod h1:FQDHRe1I995v6GG+8aJ7UIUToEmbdTJn/U26NCPIgXQ=
 github.com/andeya/goutil v1.0.1 h1:eiYwVyAnnK0dXU5FJsNjExkJW4exUGn/xefPt3k4eXg=
@@ -78,8 +76,6 @@ github.com/glebarez/go-sqlite v1.20.3 h1:89BkqGOXR9oRmG58ZrzgoY/Fhy5x0M+/WV48U5z
 github.com/glebarez/go-sqlite v1.20.3/go.mod h1:u3N6D/wftiAzIOJtZl6BmedqxmmkDfH3q+ihjqxC9u0=
 github.com/glebarez/sqlite v1.7.0 h1:A7Xj/KN2Lvie4Z4rrgQHY8MsbebX3NyWsL3n2i82MVI=
 github.com/glebarez/sqlite v1.7.0/go.mod h1:PkeevrRlF/1BhQBCnzcMWzgrIk7IOop+qS2jUYLfHhk=
-github.com/go-admin-team/go-admin-core v1.5.2 h1:aT5jutQpjQ0m+/JH+VenBLElwv7icoqEFqbMS+PbPyI=
-github.com/go-admin-team/go-admin-core v1.5.2/go.mod h1:Rndwzpg7o1fMjNHuT6By0rVr6R5pnfTyddDumpu0/14=
 github.com/go-playground/assert/v2 v2.2.0 h1:JvknZsQTYeFEAhQwI4qEt9cyV5ONwRHC+lYKSsYSR8s=
 github.com/go-playground/assert/v2 v2.2.0/go.mod h1:VDjEfimB/XKnb+ZQfWdccd7VUvScMdVu0Titje2rxJ4=
 github.com/go-playground/locales v0.14.1 h1:EWaQ/wswjilfKLTECiXz7Rh+3BjFhfDFKv/oXslEjJA=

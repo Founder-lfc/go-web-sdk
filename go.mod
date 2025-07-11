@@ -3,8 +3,7 @@ module github.com/Founder-lfc/go-web-sdk
 go 1.24.5
 
 require (
-	github.com/Founder-lfc/go-web-core v1.5.2
-	github.com/Founder-lfc/go-web-core/plugins/logger/zap v0.0.0-20250710144041-bb52093b30f5
+	github.com/Founder-lfc/go-web-core v1.0.2
 	github.com/bytedance/go-tagexpr/v2 v2.9.11
 	github.com/casbin/casbin/v2 v2.109.0
 	github.com/casbin/gorm-adapter/v3 v3.33.0
@@ -46,7 +45,6 @@ require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/glebarez/go-sqlite v1.20.3 // indirect
 	github.com/glebarez/sqlite v1.7.0 // indirect
-	github.com/go-admin-team/go-admin-core v1.5.2 // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9 // indirect
