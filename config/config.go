@@ -1,107 +1,99 @@
-// Package config is an interface for dynamic configuration.
 package config
 
 import (
-	"context"
+	"fmt"
+	"log"
 
-	"github.com/Founder-lfc/go-web-sdk/config/loader"
-	"github.com/Founder-lfc/go-web-sdk/config/reader"
-	"github.com/Founder-lfc/go-web-sdk/config/source"
-	"github.com/Founder-lfc/go-web-sdk/config/source/file"
+	"github.com/Founder-lfc/go-web-core/config"
+	"github.com/Founder-lfc/go-web-core/config/source"
 )
-
-// Config is an interface abstraction for dynamic configuration
-type Config interface {
-	// Values provide the reader.Values interface
-	reader.Values
-	// Init the config
-	Init(opts ...Option) error
-	// Options in the config
-	Options() Options
-	// Close Stop the config loader/watcher
-	Close() error
-	// Load config sources
-	Load(source ...source.Source) error
-	// Sync Force a source changeset sync
-	Sync() error
-	// Watch a value for changes
-	Watch(path ...string) (Watcher, error)
-}
-
-// Watcher is the config watcher
-type Watcher interface {
-	Next() (reader.Value, error)
-	Stop() error
-}
-
-// Entity 配置实体
-type Entity interface {
-	OnChange()
-}
-
-// Options 配置的参数
-type Options struct {
-	Loader loader.Loader
-	Reader reader.Reader
-	Source []source.Source
-
-	// for alternative data
-	Context context.Context
-
-	Entity Entity
-}
-
-// Option 调用类型
-type Option func(o *Options)
 
 var (
-	// DefaultConfig Default Config Manager
-	DefaultConfig Config
+	ExtendConfig interface{}
+	_cfg         *Settings
 )
 
-// NewConfig returns new config
-func NewConfig(opts ...Option) (Config, error) {
-	return newConfig(opts...)
+// Settings 兼容原先的配置结构
+type Settings struct {
+	Settings  Config `yaml:"settings"`
+	callbacks []func()
 }
 
-// Bytes Return config as raw json
-func Bytes() []byte {
-	return DefaultConfig.Bytes()
+func (e *Settings) runCallback() {
+	for i := range e.callbacks {
+		e.callbacks[i]()
+	}
 }
 
-// Map Return config as a map
-func Map() map[string]interface{} {
-	return DefaultConfig.Map()
+func (e *Settings) OnChange() {
+	e.init()
+	log.Println("config change and reload")
 }
 
-// Scan values to a go type
-func Scan(v interface{}) error {
-	return DefaultConfig.Scan(v)
+func (e *Settings) Init() {
+	e.init()
+	log.Println("config init")
 }
 
-// Sync Force a source changeset sync
-func Sync() error {
-	return DefaultConfig.Sync()
+func (e *Settings) init() {
+	e.Settings.Logger.Setup()
+	e.Settings.multiDatabase()
+	e.runCallback()
 }
 
-// Get a value from the config
-func Get(path ...string) reader.Value {
-	return DefaultConfig.Get(path...)
+// Config 配置集合
+type Config struct {
+	Application *Application          `yaml:"application"`
+	Ssl         *Ssl                  `yaml:"ssl"`
+	Logger      *Logger               `yaml:"logger"`
+	Jwt         *Jwt                  `yaml:"jwt"`
+	Database    *Database             `yaml:"database"`
+	Databases   *map[string]*Database `yaml:"databases"`
+	Gen         *Gen                  `yaml:"gen"`
+	Cache       *Cache                `yaml:"cache"`
+	Queue       *Queue                `yaml:"queue"`
+	Extend      interface{}           `yaml:"extend"`
 }
 
-// Load config sources
-func Load(source ...source.Source) error {
-	return DefaultConfig.Load(source...)
+// 多db改造
+func (e *Config) multiDatabase() {
+	if len(*e.Databases) == 0 {
+		*e.Databases = map[string]*Database{
+			"*": e.Database,
+		}
+
+	}
 }
 
-// Watch a value for changes
-func Watch(path ...string) (Watcher, error) {
-	return DefaultConfig.Watch(path...)
+// Setup 载入配置文件
+func Setup(s source.Source,
+	fs ...func()) {
+	_cfg = &Settings{
+		Settings: Config{
+			Application: ApplicationConfig,
+			Ssl:         SslConfig,
+			Logger:      LoggerConfig,
+			Jwt:         JwtConfig,
+			Database:    DatabaseConfig,
+			Databases:   &DatabasesConfig,
+			Gen:         GenConfig,
+			Cache:       CacheConfig,
+			Queue:       QueueConfig,
+			Extend:      ExtendConfig,
+		},
+		callbacks: fs,
+	}
+	var err error
+	config.DefaultConfig, err = config.NewConfig(
+		config.WithSource(s),
+		config.WithEntity(_cfg),
+	)
+	handleError(err, "New config object fail")
+	_cfg.Init()
 }
 
-// LoadFile is short hand for creating a file source and loading it
-func LoadFile(path string) error {
-	return Load(file.NewSource(
-		file.WithPath(path),
-	))
+func handleError(err error, msg string) {
+	if err != nil {
+		log.Fatal(fmt.Sprintf("%s: %s", msg, err.Error()))
+	}
 }

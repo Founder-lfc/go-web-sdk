@@ -2,9 +2,11 @@ package user
 
 import (
 	"fmt"
+
+	"github.com/gin-gonic/gin"
+
 	"github.com/Founder-lfc/go-web-sdk/pkg"
 	jwt "github.com/Founder-lfc/go-web-sdk/pkg/jwtauth"
-	"github.com/gin-gonic/gin"
 )
 
 func ExtractClaims(c *gin.Context) jwt.MapClaims {

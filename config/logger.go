@@ -1,5 +1,7 @@
 package config
 
+import "github.com/Founder-lfc/go-web-sdk/pkg/logger"
+
 type Logger struct {
 	Type      string
 	Path      string
@@ -9,6 +11,7 @@ type Logger struct {
 	Cap       uint
 }
 
+// Setup 设置logger
 func (e Logger) Setup() {
 	logger.SetupLogger(
 		logger.WithType(e.Type),
@@ -18,3 +21,5 @@ func (e Logger) Setup() {
 		logger.WithCap(e.Cap),
 	)
 }
+
+var LoggerConfig = new(Logger)
